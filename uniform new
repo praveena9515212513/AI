@@ -1,0 +1,31 @@
+graph = {'sibiu':{'fagaras':99,'rv':80},
+        'rv':{'pitesti':97},
+        'pitesti':{'B':101},
+        'fagaras':{'B':211}}
+start = 'sibiu'
+goal = 'B'
+queue=[[0,start]]
+q=[start]
+visited=[]
+def uniform_cost():
+    while queue:
+        item = queue.pop(0)
+        q.pop(0)
+        city = item[1]
+        if city==goal:
+            print('goal reached')
+            print(visited)
+            return
+        visited.append(city)
+        for i in graph[city]:
+            if i not in visited or i not in q:  
+                queue.append([item[0]+graph[city][i],i])
+                q.append(i)
+            else:
+                index=q.index(graph[city])
+                if queue[index][0]>item[0]+graph[city][i]:
+                    queue[index][0]=item[0]+graph[city][i]
+        queue.sort()
+
+uniform_cost()  
+# visited
